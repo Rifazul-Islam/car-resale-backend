@@ -1,0 +1,72 @@
+
+
+[
+    {
+        "name": "Tariff reduced on microbus",
+         "img":"https://i.ibb.co/QkqcgGr/download.jpg",
+         "Locatin":"Dhaka",
+         "resale price": 10000,
+         "original price":30000,
+          "years " : 5,
+         "category":"microbus"
+       
+
+    },  
+    {
+        "name": " Brand New Noah Hiace Microbus",
+         "img":"https://i.ibb.co/c1cV9gj/X81-C-URVAN-W-Tigereye-2014-jpg-ximg-l-6-m-smart.jpg",
+         "Locatin":"Rashahy",
+         "resale price": 20000,
+         "original price":40000,
+          "years " : 5,
+         "category":"microbus"
+        },
+
+    
+
+
+   
+    {
+        "name":"Owners of luxury cars under NBR scanners",
+         "img":"https://i.ibb.co/Mkdzc0z/images.jpg",
+         "Locatin":"Dinajpur",
+         "resale price": 40000,
+         "original price":30000,
+          "years " : 5,
+         "categorys":"Lexsery"
+    },  
+    {
+        "name": " Luxury Best Cars ",
+         "img":"https://i.ibb.co/H7syMJW/maserati-granturismo-folgore-front-3-4.jpg",
+         "Locatin":" Khulna",
+         "resale price": 20000,
+         "original price":30000,
+          "years " : 3,
+         "categorys":"Lexsery"
+        },
+
+
+   
+ 
+    {
+        "name": " An Electric Car recharging its battery",
+         "img":"https://i.ibb.co/WkkyPhJ/images-2.jpg",
+         "Locatin":"pabna",
+         "resale price": 20000,
+         "original price":40000,
+          "years " : 2,
+         "categoryss":"electic"
+    },  
+    {
+        "name": " Electric car hologram, electricity sign",
+         "img":"https://i.ibb.co/d5fcSQn/images-3.jpg",
+         "Locatin":"Dhaka",
+         "resale price": 10000,
+         "original price":20000,
+          "years " : 3,
+         "categoryss":"electic"
+    }
+]
+
+
+

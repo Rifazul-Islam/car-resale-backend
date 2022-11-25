@@ -23,6 +23,7 @@ async function run(){
           
               const categoriesCollection = client.db('carResaledb').collection('categories')
               const allProductCollection = client.db('carResaledb').collection('products')
+              const usersCollection = client.db('carResaledb').collection('users')
            
               app.get('/categories',async(req,res)=>{
 
@@ -41,6 +42,13 @@ async function run(){
                   const result = await allProductCollection.find(query).toArray()
                   res.send(result)
             })
+
+
+             app.post('/users',async(req,res)=>{
+                  const user = req.body;
+                  const result = await usersCollection.insertOne(user);
+                  res.send(result)
+             })
 
 
              

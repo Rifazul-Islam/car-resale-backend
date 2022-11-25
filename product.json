@@ -28,7 +28,7 @@
          "Locatin":"Dinajpur",
          "resalePrice": 40000,
          "originalPrice":30000,
-          "years " : 5,
+          "years" : 5,
          "category":"Lexsery"
     },  
     {
@@ -37,7 +37,7 @@
          "Locatin":" Khulna",
          "resalePrice": 20000,
          "originalPrice":30000,
-          "years " : 3,
+          "years" : 3,
          "category":"Lexsery"
         },
 
@@ -50,7 +50,7 @@
          "Locatin":"pabna",
          "resalePrice": 20000,
          "originalPrice":40000,
-          "years " : 2,
+          "years" : 2,
          "category":"electic"
     },  
     {
@@ -59,7 +59,7 @@
          "Locatin":"Dhaka",
          "resalePrice": 10000,
          "originalPrice":20000,
-          "years " : 3,
+          "years" : 3,
          "category":"electic"
     }
 ]

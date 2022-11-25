@@ -24,6 +24,7 @@ async function run(){
               const categoriesCollection = client.db('carResaledb').collection('categories')
               const allProductCollection = client.db('carResaledb').collection('products')
               const usersCollection = client.db('carResaledb').collection('users')
+              const bookingsCollection = client.db('carResaledb').collection('bookings')
            
               app.get('/categories',async(req,res)=>{
 
@@ -51,6 +52,13 @@ async function run(){
              })
 
 
+
+
+             app.post('/bookings',async(req,res)=>{
+                  const booking = req.body;
+                  const result = await bookingsCollection.insertOne(booking);
+                  res.send(result)
+             })
              
             }
 

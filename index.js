@@ -126,6 +126,7 @@ async function run(){
            })
 
 
+
            app.post('/sellerProducts',async(req,res)=>{
 
                  const product = req.body;
@@ -133,6 +134,16 @@ async function run(){
                  res.send(result)
             
            })
+
+
+
+           app.get('/sellerProducts',async(req,res)=>{
+
+            const query = {};
+            const result = await sellerProductsCollection.find(query).toArray()
+            res.send(result)
+       
+      })
 
              
             }

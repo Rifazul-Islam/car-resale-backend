@@ -26,6 +26,7 @@ async function run(){
               const allProductCollection = client.db('carResaledb').collection('products')
               const usersCollection = client.db('carResaledb').collection('users')
               const bookingsCollection = client.db('carResaledb').collection('bookings')
+              const sellerProductsCollection = client.db('carResaledb').collection('sellerProducts')
            
               app.get('/categories',async(req,res)=>{
 
@@ -76,8 +77,8 @@ async function run(){
                    res.send({ isSeller: user?.role === 'seller'})
              })
 
-                
-      app.get('/jwt',async(req,res)=>{
+        //jwt created        
+         app.get('/jwt',async(req,res)=>{
 
              const email  =req.query.email;
              const query = {email:email}
@@ -86,24 +87,12 @@ async function run(){
              if(user){
                   
                  const token = jwt.sign({email},process.env.ACCESS_TOKEN, {expiresIn:'7d'})
-                 
+
                   return res.send({accessToken : token})
               }
               res.status(403).send({accessToken: ''})
 
       })
-
-
-
-            //  app.get('/users/:id',async(req,res)=>{
-
-            //       const id = req.params.id;
-            //       const filter ={_id:ObjectId(id)}
-            //       const role = await usersCollection.findOne(filter)
-                 
-            //       const result = await allProductCollection.find(query).toArray()
-            //       res.send(result)
-            // })
 
 
              app.get('/users',async(req,res)=>{
@@ -135,6 +124,16 @@ async function run(){
                    res.send(result)
                    
            })
+
+
+           app.post('/sellerProducts',async(req,res)=>{
+
+                 const product = req.body;
+                 const result = await sellerProductsCollection.insertOne(product)
+                 res.send(result)
+            
+           })
+
              
             }
 

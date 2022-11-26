@@ -1,7 +1,7 @@
 const express = require('express');
-const cors = require('cors');
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
-const { query } = require('express');
+const cors = require('cors');
+const jwt = require('jsonwebtoken');
 require('dotenv').config() ;
 const app = express()
 
@@ -14,7 +14,7 @@ app.use(express.json())
 
 
 
-
+   
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.o15tjkl.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
@@ -76,9 +76,50 @@ async function run(){
                    res.send({ isSeller: user?.role === 'seller'})
              })
 
+                
+      app.get('/jwt',async(req,res)=>{
 
-             
+             const email  =req.query.email;
+             const query = {email:email}
+             const user = await usersCollection.findOne(query)
 
+             if(user){
+                  
+                 const token = jwt.sign({email},process.env.ACCESS_TOKEN, {expiresIn:'7d'})
+                 
+                  return res.send({accessToken : token})
+              }
+              res.status(403).send({accessToken: ''})
+
+      })
+
+
+
+            //  app.get('/users/:id',async(req,res)=>{
+
+            //       const id = req.params.id;
+            //       const filter ={_id:ObjectId(id)}
+            //       const role = await usersCollection.findOne(filter)
+                 
+            //       const result = await allProductCollection.find(query).toArray()
+            //       res.send(result)
+            // })
+
+
+             app.get('/users',async(req,res)=>{
+
+                   const query = {}
+                    
+                   const user = await usersCollection.find(query).toArray()
+
+                  const filter ={role:user.role === 'seller'}
+                     
+                  const result = await usersCollection.find(filter).toArray()
+                 res.send(result)
+                   
+             })
+
+           
 
              app.post('/bookings',async(req,res)=>{
                   const booking = req.body;

@@ -55,6 +55,9 @@ async function run(){
               const sellerProductsCollection = client.db('carResaledb').collection('sellerProducts')
               const paymentsCollection = client.db('carResaledb').collection('payments')
            
+
+        //  get categories Api
+
               app.get('/categories',async(req,res)=>{
 
                       const query = {}
@@ -62,6 +65,8 @@ async function run(){
                       res.send(result)
               })
 
+
+         //  get categories data filter Api
 
                app.get('/categories/:id',async(req,res)=>{
 
@@ -76,6 +81,7 @@ async function run(){
 
 
 
+      //  get  users Api
 
              app.post('/users',async(req,res)=>{
                   const user = req.body;
@@ -83,6 +89,8 @@ async function run(){
                   res.send(result)
              })
 
+
+             //  get check users role Api
 
              app.get('/users/buyer/:email',async(req,res)=>{
 
@@ -93,7 +101,8 @@ async function run(){
                    res.send({ isBuyer: user?.role === 'buyer'})
              })
 
-
+     
+             //  get check seller role Api
 
              app.get('/users/seller/:email',async(req,res)=>{
 
@@ -104,7 +113,8 @@ async function run(){
                    res.send({ isSeller: user?.role === 'seller'})
              })
 
-         
+              //  get check seller role Api
+
              app.get('/users/admin/:email',async(req,res)=>{
 
                    const email = req.params.email;
@@ -116,8 +126,51 @@ async function run(){
 
 
 
+   
+     //  get check seller role Api
 
-        //jwt created        
+     app.get('/users',async(req,res)=>{
+
+      const query = {}
+      const user = await usersCollection.find(query).toArray()
+
+     const filter ={role:'seller'}
+        
+     const result = await usersCollection.find(filter).toArray()
+    res.send(result)
+      
+})
+
+
+
+       app.delete('/users/:id',async(req,res)=>{
+
+           const id = req.params.id;
+           const query={_id:ObjectId(id)}
+           const seller = await usersCollection.deleteOne(query)
+           res.send(seller)
+      })
+
+
+ //  get check seller role Api
+
+ app.get('/buyers',async(req,res)=>{
+
+      const query = {}
+      const user = await usersCollection.find(query).toArray()
+
+     const filter ={role:'buyer'}
+        
+     const result = await usersCollection.find(filter).toArray()
+    res.send(result)
+      
+})
+
+
+
+
+        // get jwt created  
+
          app.get('/jwt',async(req,res)=>{
 
              const email  =req.query.email;
@@ -135,26 +188,16 @@ async function run(){
       })
 
          
-             app.get('/users',async(req,res)=>{
-
-                   const query = {}
-                   const user = await usersCollection.find(query).toArray()
-
-                  const filter ={role:'seller'}
-                     
-                  const result = await usersCollection.find(filter).toArray()
-                 res.send(result)
-                   
-             })
-
-           
-
+            // post bookings Api
+            
              app.post('/bookings',async(req,res)=>{
                   const booking = req.body;
                   const result = await bookingsCollection.insertOne(booking);
                   res.send(result)
              })
 
+
+             // get  Specefic email Api bookings 
 
              app.get('/bookings', async (req,res)=>{
                   const email = req.query.email
@@ -166,7 +209,7 @@ async function run(){
 
 
 
-             
+             // get  Specefic  id  payment  Api 
            app.get('/bookings/:id',async(req,res)=>{
 
                    const id = req.params.id;
@@ -175,7 +218,9 @@ async function run(){
                    res.send(payment)
            })
 
-             
+               
+          // post Stripe  Api 
+
            app.post('/create-payment-intent', async(req,res)=>{
 
             const booking = req.body;
@@ -198,7 +243,8 @@ async function run(){
    })
 
 
-   app.post('/payments', async(req,res)=>{
+
+     app.post('/payments', async(req,res)=>{
       const payment = req.body;
        const result = await paymentsCollection.insertOne(payment)
        

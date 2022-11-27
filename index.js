@@ -167,6 +167,14 @@ async function run(){
 })
 
 
+app.delete('/buyers/:id',async(req,res)=>{
+
+      const id = req.params.id;
+      const query={_id:ObjectId(id)}
+      const seller = await usersCollection.deleteOne(query)
+      res.send(seller)
+ })
+
 
 
         // get jwt created  
@@ -181,7 +189,7 @@ async function run(){
                   
                  const token = jwt.sign({email},process.env.ACCESS_TOKEN, {expiresIn:'7d'})
 
-                  return res.send({accessToken : token})
+              return res.send({accessToken : token})
               }
               res.status(403).send({accessToken: ''})
 

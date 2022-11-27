@@ -4,7 +4,7 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 require('dotenv').config() ;
 const app = express()
-
+const stripe = require("stripe")(process.env.STRIPE_SCRET_KEY);
 const port = process.env.PORT || 5000 ;
 
 //midler awere;
@@ -17,6 +17,32 @@ app.use(express.json())
    
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.o15tjkl.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+
+function jwtverify(req,res,next){
+
+      const headerAuth = req.headers.authorization
+      if(!headerAuth){
+
+           return res.status(401).send('authorization unaccess')
+      }
+      const token = headerAuth.split(' ')[1];
+      jwt.verify(token, process.env.ACCESS_TOKEN, function(err, decoded) {
+          
+          if(err) {
+
+             return res.status(403).send({message:'forbidend accesss'})
+          }
+          req.decoded = decoded;
+          next();
+
+         })
+ 
+ }
+
+
+
+
+
 
 async function run(){
 
@@ -124,6 +150,18 @@ async function run(){
                    res.send(result)
                    
            })
+
+
+
+             
+           app.get('/bookings/:id',async(req,res)=>{
+
+                   const id = req.params.id;
+                   const query = {_id: ObjectId(id)}
+                   const payment = await bookingsCollection.findOne(query)
+                   res.send(payment)
+           })
+
 
 
 

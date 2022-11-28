@@ -88,7 +88,7 @@ async function run(){
                   const result = await usersCollection.insertOne(user);
                   res.send(result)
              })
-
+             
 
              //  get check users role Api
 
@@ -166,6 +166,8 @@ async function run(){
       
 })
 
+
+  // specing buyer delete 
 
 app.delete('/buyers/:id',async(req,res)=>{
 
@@ -251,6 +253,7 @@ app.delete('/buyers/:id',async(req,res)=>{
    })
 
 
+    //   post payment methoad 
 
      app.post('/payments', async(req,res)=>{
       const payment = req.body;
@@ -275,17 +278,19 @@ app.delete('/buyers/:id',async(req,res)=>{
 
 
 
-
-
+    //   post sellerProducts methoad 
+    
            app.post('/sellerProducts',async(req,res)=>{
 
                  const product = req.body;
                  const result = await sellerProductsCollection.insertOne(product)
+                 const resul = await allProductCollection.insertOne(product)
                  res.send(result)
             
            })
 
-
+                
+     //   get sellerProducts methoad 
 
            app.get('/sellerProducts',async(req,res)=>{
 
@@ -295,7 +300,7 @@ app.delete('/buyers/:id',async(req,res)=>{
        
       })
 
-             
+         
             }
 
         finally{

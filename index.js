@@ -154,7 +154,7 @@ async function run(){
 
  //  get check seller role Api
 
- app.get('/buyers',async(req,res)=>{
+ app.get('/buyers', jwtverify, async(req,res)=>{
 
       const query = {}
       const user = await usersCollection.find(query).toArray()
@@ -209,9 +209,18 @@ app.delete('/buyers/:id',async(req,res)=>{
 
              // get  Specefic email Api bookings 
 
-             app.get('/bookings', async (req,res)=>{
-                  const email = req.query.email
-                  const query = {email}
+             app.get('/bookings', jwtverify, async (req,res)=>{
+
+                  const email = req.query.email;
+                const decodedEmail = req.decoded.email;
+                 
+                   if( email !== decodedEmail){
+                    
+                      return res.status(403).send({message:'forbidden'})
+                   }
+
+                  
+                  const query = {email:email}
                    const result = await bookingsCollection.find(query).toArray()
                    res.send(result)
                    
@@ -300,7 +309,7 @@ app.delete('/buyers/:id',async(req,res)=>{
        
       })
 
-         
+
             }
 
         finally{
